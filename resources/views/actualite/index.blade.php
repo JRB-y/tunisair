@@ -29,10 +29,12 @@
                     @foreach ($actualites as $act)
                         <tr>
                         <td>{{ $act->id }}</td>
-                        <td>{{ $act->image }}</td>
+                        <td>
+                            <img src="{{ asset('app/' . $act->image) }}" width="100">
+                        </td>
                         <td>{{ $act->title }}</td>
                         <td>{{ $act->content }}</td>
-                        <td>{{ $act->user }}</td>
+                        <td>{{ $act->user->firstname . ' ' . $act->user->lastname }}</td>
                         <td>{{ $act->created_at->format('d/m/Y H:m') }}</td>
                         <td>
                             ACTIONS

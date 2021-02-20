@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Actualite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ActualiteController extends Controller
 {
@@ -36,7 +38,15 @@ class ActualiteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $path = Storage::disk('local')->put('actualites', $request->file('image'));
+        $actu = new Actualite();
+        $actu->title = $request->title;
+        $actu->content = $request->content;
+        $actu->image = $path;
+        $actu->created_by = Auth::id();
+        $actu->save();
+
+        return redirect('actualite');
     }
 
     /**
@@ -47,7 +57,8 @@ class ActualiteController extends Controller
      */
     public function show($id)
     {
-        //
+        $actu = Actualite::find($id);
+        return view('actualite.show')->with('actu', $actu);
     }
 
     /**

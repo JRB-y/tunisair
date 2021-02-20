@@ -18,8 +18,8 @@ class CreateActualitesTable extends Migration
             $table->string('image');
             $table->string('title');
             $table->text('content');
-            $table->unsignedBigInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

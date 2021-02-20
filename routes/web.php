@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [App\Http\Controllers\GuestController::class, 'index'])->name('gest.index');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -63,3 +65,5 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/actualite', [App\Http\Controllers\ActualiteController::class, 'index'])->name('actualite');
 Route::get('/actualite/create', [App\Http\Controllers\ActualiteController::class, 'create'])->name('actualite.create');
+Route::post('/actualite', [App\Http\Controllers\ActualiteController::class, 'store'])->name('actualite.store');
+Route::get('/actualite/{id}', [App\Http\Controllers\ActualiteController::class, 'show'])->name('actualite.store');
