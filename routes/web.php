@@ -18,7 +18,12 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [App\Http\Controllers\GuestController::class, 'index'])->name('gest.index');
+// Route::get('/guest', [App\Http\Controllers\GuestController::class, 'index'])->name('gest.index');
+Route::get('/employe', [App\Http\Controllers\EmployeController::class, 'index'])->name('employe.index');
+
+Route::get('/', function () {
+    return view('auth.login');
+});
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -67,3 +72,13 @@ Route::get('/actualite', [App\Http\Controllers\ActualiteController::class, 'inde
 Route::get('/actualite/create', [App\Http\Controllers\ActualiteController::class, 'create'])->name('actualite.create');
 Route::post('/actualite', [App\Http\Controllers\ActualiteController::class, 'store'])->name('actualite.store');
 Route::get('/actualite/{id}', [App\Http\Controllers\ActualiteController::class, 'show'])->name('actualite.store');
+Route::get('/actualite/active/{id}', [App\Http\Controllers\ActualiteController::class, 'active'])->name('actualite.active');
+Route::get('/actualite/edit/{id}', [App\Http\Controllers\ActualiteController::class, 'edit'])->name('actualite.edit');
+Route::post('/actualite/edit/{id}', [App\Http\Controllers\ActualiteController::class, 'update'])->name('actualite.update');
+
+Route::get('/employes', [App\Http\Controllers\AdminEmployeController::class, 'index'])->name('admin.employes');
+Route::get('/employes/create', [App\Http\Controllers\AdminEmployeController::class, 'create'])->name('admin.employes.create');
+Route::post('/employes', [App\Http\Controllers\AdminEmployeController::class, 'store'])->name('admin.employes.store');
+Route::get('/employes/edit/{id}', [App\Http\Controllers\AdminEmployeController::class, 'edit'])->name('admin.employes.edit');
+Route::post('/employes/edit/{id}', [App\Http\Controllers\AdminEmployeController::class, 'update'])->name('admin.employes.update');
+Route::get('/employes/active/{id}', [App\Http\Controllers\AdminEmployeController::class, 'active'])->name('admin.employes.active');

@@ -17,7 +17,7 @@
     <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="{{ asset('material') }}/demo/demo.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous" />
+
     <style>
         .card {
             z-index: 99;
@@ -25,90 +25,62 @@
     </style>
     </head>
     <body class="{{ $class ?? '' }}">
-        @auth()
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-            @include('layouts.page_templates.auth')
-        @endauth
-        @guest()
-            @include('layouts.page_templates.guest')
-        @endguest
-        @if (auth()->check())
-        {{-- <div class="fixed-plugin">
-          <div class="dropdown show-dropdown">
-            <a href="#" data-toggle="dropdown">
-              <i class="fa fa-cog fa-2x"> </i>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header-title"> Sidebar Filters</li>
-              <li class="adjustments-line">
-                <a href="javascript:void(0)" class="switch-trigger active-color">
-                  <div class="badge-colors ml-auto mr-auto">
-                    <span class="badge filter badge-purple " data-color="purple"></span>
-                    <span class="badge filter badge-azure" data-color="azure"></span>
-                    <span class="badge filter badge-green" data-color="green"></span>
-                    <span class="badge filter badge-warning active" data-color="orange"></span>
-                    <span class="badge filter badge-danger" data-color="danger"></span>
-                    <span class="badge filter badge-rose" data-color="rose"></span>
-                  </div>
-                  <div class="clearfix"></div>
-                </a>
-              </li>
-              <li class="header-title">Images</li>
-              <li class="active">
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                  <img src="{{ asset('material') }}/img/sidebar-1.jpg" alt="">
-                </a>
-              </li>
-              <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                  <img src="{{ asset('material') }}/img/sidebar-2.jpg" alt="">
-                </a>
-              </li>
-              <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                  <img src="{{ asset('material') }}/img/sidebar-3.jpg" alt="">
-                </a>
-              </li>
-              <li>
-                <a class="img-holder switch-trigger" href="javascript:void(0)">
-                  <img src="{{ asset('material') }}/img/sidebar-4.jpg" alt="">
-                </a>
-              </li>
-              <li class="button-container">
-                <a href="https://www.creative-tim.com/product/material-dashboard-laravel" target="_blank" class="btn btn-primary btn-block">Free Download</a>
-              </li>
-              <!-- <li class="header-title">Want more components?</li>
-                  <li class="button-container">
-                      <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
-                        Get the pro version
-                      </a>
-                  </li> -->
-              <li class="button-container">
-                <a href="https://material-dashboard-laravel.creative-tim.com/docs/getting-started/laravel-setup.html" target="_blank" class="btn btn-default btn-block">
-                  View Documentation
-                </a>
-              </li>
-              <li class="button-container">
-                <a href="https://www.creative-tim.com/product/material-dashboard-pro-laravel" target="_blank" class="btn btn-danger btn-block btn-round">
-                  Upgrade to PRO
-                </a>
-              </li>
-              <li class="button-container github-star">
-                <a class="github-button" href="https://github.com/creativetimofficial/material-dashboard-laravel" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-              </li>
-              <li class="header-title">Thank you for 95 shares!</li>
-              <li class="button-container text-center">
-                <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
-                <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
-                <br>
-                <br>
-              </li>
-            </ul>
-          </div>
-        </div> --}}
-        @endif
+
+        <!-- End Navbar -->
+        <div class="wrapper wrapper-full-page">
+            <div class="page-header login-page header-filter" filter-color="black" style="background-image: url('{{ asset('material') }}/img/bg-tunisair.jpg'); background-size: cover; background-position: top center;align-items: center;" data-color="purple">
+            <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
+
+                <!-- Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
+                    <div class="container">
+                        <div class="navbar-wrapper">
+                            
+                            <a class="navbar-brand" href="/employe">
+                                <img src="{{ asset('material') }}/img/Tunisair_logo.png" width="250">
+                            </a>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        <span class="navbar-toggler-icon icon-bar"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-end">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                            </li>
+                            <li class="nav-item ">
+
+                                <li class="nav-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <a href="{{ route('register') }}" class="nav-link">
+                                        <i class="material-icons">logout</i> {{ __('Deconnexion') }}
+                                    </a>
+                                    </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                </nav>
+                <div class="container" style="height: auto;">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7 col-md-8">
+                            <h1 class="text-white text-center">{{ __('Bienvenue sur le site de Tunisiair') }}</h1>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                @yield('content')
+                {{-- @include('layouts.footers.guest') --}}
+            </div>
+            </div>
         <!--   Core JS Files   -->
         <script src="{{ asset('material') }}/js/core/jquery.min.js"></script>
         <script src="{{ asset('material') }}/js/core/popper.min.js"></script>
@@ -116,11 +88,10 @@
         <script src="{{ asset('material') }}/js/plugins/perfect-scrollbar.jquery.min.js"></script>
         <!-- Plugin for the momentJs  -->
         <script src="{{ asset('material') }}/js/plugins/moment.min.js"></script>
-        <script src="{{ asset('material') }}/js/plugins/moment.min.js"></script>
         <!--  Plugin for Sweet Alert -->
         <script src="{{ asset('material') }}/js/plugins/sweetalert2.js"></script>
         <!-- Forms Validations Plugin -->
-        <script src="{{ asset('material') }}/js/moment-fr.js"></script>
+        <script src="{{ asset('material') }}/js/plugins/jquery.validate.min.js"></script>
         <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
         <script src="{{ asset('material') }}/js/plugins/jquery.bootstrap-wizard.js"></script>
         <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->

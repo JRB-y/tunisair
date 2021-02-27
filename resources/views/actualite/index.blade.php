@@ -23,6 +23,7 @@
                     <th>Contenu</th>
                     <th>Utilisateur</th>
                     <th>Date création</th>
+                    <th>Active</th>
                     <th>Actions</th>
                     </thead>
                     <tbody>
@@ -37,7 +38,15 @@
                         <td>{{ $act->user->firstname . ' ' . $act->user->lastname }}</td>
                         <td>{{ $act->created_at->format('d/m/Y H:m') }}</td>
                         <td>
-                            ACTIONS
+                            <i class="fa fa-circle" style="color: {{ $act->active ? 'green' : 'red' }};"></i>
+                        </td>
+                        <td>
+                            <a type="button" rel="tooltip" class="btn btn-info text-white" href="/actualite/edit/{{$act->id}}">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a type="button" rel="tooltip" class="btn text-white {{ $act->active ? 'btn-danger' : 'btn-success' }}" href="/actualite/active/{{ $act->id }}">
+                                <i class="material-icons">{{ $act->active ? 'close' : 'check' }}</i>
+                            </a>
                         </td>
                         </tr>
                     @endforeach

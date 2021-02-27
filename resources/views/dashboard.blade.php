@@ -253,8 +253,8 @@
         <div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-header card-header-danger">
-              <h4 class="card-title">Employés</h4>
-              <p class="card-category">Liste des employés</p>
+              <h4 class="card-title">Utilisateurs</h4>
+              <p class="card-category">Liste des Utilisateurs</p>
             </div>
             <div class="card-body table-responsive">
               <table class="table table-hover">
@@ -265,6 +265,7 @@
                   <th>Email</th>
                   <th>Téléphone</th>
                   <th>Date création</th>
+                  <th>Role</th>
                   <th>Actif</th>
                 </thead>
                 <tbody>
@@ -276,6 +277,7 @@
                       <td>{{ $user->email }}</td>
                       <td>{{ $user->phone }}</td>
                       <td>{{ $user->created_at->format('d/m/Y H:m') }}</td>
+                      <td>{{ $user->role }}</td>
                       <td>
                         <i class="fa fa-circle" style="color: {{ $user->active ? 'green' : 'red' }};"></i>
                       </td>

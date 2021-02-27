@@ -23,6 +23,12 @@
             <p>{{ __('Actualités') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'employe' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.employes') }}">
+          <i class="material-icons">person</i>
+            <p>{{ __('Employées') }}</p>
+        </a>
+      </li>
       {{-- <li class="nav-item {{ ($activePage == 'profile' || $activePage == 'user-management') ? ' active' : '' }}">
         <a class="nav-link" data-toggle="collapse" href="#laravelExample" aria-expanded="true">
           <i><img style="width:25px" src="{{ asset('material') }}/img/laravel.svg"></i>

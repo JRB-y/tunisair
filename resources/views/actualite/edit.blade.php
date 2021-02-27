@@ -12,7 +12,7 @@
                 <p class="card-category">Vous pouvez crée une nouvelle actualité</p>
                 </div>
                 <div class="card-body table-responsive">
-                    <form method="POST" action="/actualite" enctype="multipart/form-data">
+                    <form method="POST" action="/actualite/edit/{{$actualite->id}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <div class="row">
@@ -36,27 +36,41 @@
 
                         <div class="form-group">
                             <label for="titleActu">Titre</label>
-                            <input type="text" class="form-control" id="titleActu" aria-describedby="titleHelper" name="title">
+                            <input type="text" class="form-control" id="titleActu" aria-describedby="titleHelper" name="title" value="{{$actualite->title}}">
                         </div>
                         <div class="form-group">
                             <label for="contentActu">Contenu</label>
-                            <textarea class="form-control" id="contentActu" rows="3" name="content"></textarea>
+                            <textarea class="form-control" id="contentActu" rows="3" name="content">{{ $actualite->content }}</textarea>
                         </div>
                         
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="contentActu">Date d'apparition</label>
-                                    <input type="text" class="form-control datepicker" aria-describedby="titleHelper" name="start_date">
+                                    <input type="text" class="form-control datepicker" aria-describedby="titleHelper" name="start_date" 
+                                    value="{{ $actualite->start_date ? $actualite->start_date->format('d/m/Y H:m') : '' }}">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="contentActu">Date de fin</label>
-                                    <input type="text" class="form-control datepicker" aria-describedby="titleHelper" name="end_date">
+                                    <input type="text" class="form-control datepicker" aria-describedby="titleHelper" name="end_date" 
+                                    value="{{ $actualite->end_date ? $actualite->end_date->format('d/m/Y H:m') : '' }}">
                                 </div>
                             </div>
                         </div>
+
+                        {{-- <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="active" checked="{{$actualite->active ? true : false}}">
+                                Actualité active
+                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                </span>
+                            </label>
+                        </div> --}}
+
+
 
                         <button type="submit" class="btn btn-primary">Sauvegarder</button>
                     </form>

@@ -11,8 +11,15 @@ class Actualite extends Model
 
     protected $with = ['user'];
 
+    protected $dates = ['start_date', 'end_date'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getStartDateAttributes($value)
+    {
+        return 'abc';
     }
 }
