@@ -5,25 +5,25 @@
 <div class="content">
     <div class="container-fluid">
         <a class="btn btn-danger button" href="/employes/create">
-            <span class="text-white">Nouveau Employé</span>
+            <span class="text-white">New Employee</span>
         </a>
         <div class="row">
             <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger">
-                <h4 class="card-title">Employés</h4>
-                <p class="card-category">Liste des employés</p>
+                <h4 class="card-title">All Employees</h4>
+                <p class="card-category">List of employee</p>
                 </div>
                 <div class="card-body table-responsive">
                 <table class="table table-hover">
                     <thead class="text-warning">
                     <th>ID</th>
-                    <th>Nom</th>
-                    <th>Prénom</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
                     <th>Email</th>
-                    <th>Téléphone</th>
-                    <th>Date création</th>
-                    <th>Actif</th>
+                    <th>Phone</th>
+                    <th>Created at</th>
+                    <th>Active</th>
                     <th>Actions</th>
                     </thead>
                     <tbody>

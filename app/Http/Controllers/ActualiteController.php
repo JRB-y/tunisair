@@ -39,7 +39,6 @@ class ActualiteController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(Carbon::parse($request->start_date)->format('d/m/Y'));
         $explodedStart = explode('/', $request->start_date);
         $explodedEnd = explode('/', $request->end_date);
 

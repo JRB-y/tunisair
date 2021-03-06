@@ -253,20 +253,20 @@
         <div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-header card-header-danger">
-              <h4 class="card-title">Utilisateurs</h4>
-              <p class="card-category">Liste des Utilisateurs</p>
+              <h4 class="card-title">Users</h4>
+              <p class="card-category">List of all users</p>
             </div>
             <div class="card-body table-responsive">
               <table class="table table-hover">
                 <thead class="text-warning">
                   <th>ID</th>
-                  <th>Nom</th>
-                  <th>Prénom</th>
+                  <th>Firstname</th>
+                  <th>Lastname</th>
                   <th>Email</th>
-                  <th>Téléphone</th>
-                  <th>Date création</th>
+                  <th>Phone</th>
+                  <th>Created At</th>
                   <th>Role</th>
-                  <th>Actif</th>
+                  <th>Active</th>
                 </thead>
                 <tbody>
                   @foreach ($users as $user)

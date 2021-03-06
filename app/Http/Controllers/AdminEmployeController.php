@@ -37,6 +37,14 @@ class AdminEmployeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'email' => 'required:email',
+            'password' => 'required:min:4',
+        ]);
+
         $user = new User();
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;

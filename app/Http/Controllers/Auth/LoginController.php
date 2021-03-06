@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use App\Models\User;
+
 class LoginController extends Controller
 {
     /*
@@ -49,13 +51,16 @@ class LoginController extends Controller
         $credentials = $request->except(['_token']);
 
         $user = User::where('email', $request->email)->first();
-        
-        if (!$user->active) {
-            session()->flash('message', 'Invalid credentials');
-            return redirect()->back();
+    
+        if (!$user) {
+            throw ValidationException::withMessages(['email' => 'Incorrect email']);
         }
+    
+        if (!$user->active) {
+            throw ValidationException::withMessages(['email' => 'User isnt active']);
+        }
+    
         if (auth()->attempt($credentials)) {
-
             switch ($user->role) {
                 case 'admin':
                     return redirect()->route('home');
@@ -67,9 +72,8 @@ class LoginController extends Controller
 
             
 
-        }else {
-            session()->flash('message', 'Invalid credentials');
-            return redirect()->back();
+        } else {
+            throw ValidationException::withMessages(['password' => 'Incorrect password']);
         }
     }
 }

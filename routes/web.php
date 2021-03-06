@@ -82,3 +82,9 @@ Route::post('/employes', [App\Http\Controllers\AdminEmployeController::class, 's
 Route::get('/employes/edit/{id}', [App\Http\Controllers\AdminEmployeController::class, 'edit'])->name('admin.employes.edit');
 Route::post('/employes/edit/{id}', [App\Http\Controllers\AdminEmployeController::class, 'update'])->name('admin.employes.update');
 Route::get('/employes/active/{id}', [App\Http\Controllers\AdminEmployeController::class, 'active'])->name('admin.employes.active');
+
+Route::get('/conventions', [App\Http\Controllers\AdminConventionController::class, 'index'])->name('admin.convention');
+Route::get('/conventions/create', [App\Http\Controllers\AdminConventionController::class, 'create'])->name('admin.convention.create');
+Route::post('/conventions', [App\Http\Controllers\AdminConventionController::class, 'store'])->name('admin.convention.store');
+Route::get('/conventions/edit/{id}', [App\Http\Controllers\AdminConventionController::class, 'edit'])->name('admin.convention.edit');
+Route::post('/conventions/edit/{id}', [App\Http\Controllers\AdminConventionController::class, 'update'])->name('admin.convention.update');

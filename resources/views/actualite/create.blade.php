@@ -1,4 +1,11 @@
 @extends('layouts.app', ['activePage' => 'actualite', 'titlePage' => __('Nouvelle Actualité')])
+@push('css')
+.ui-datepicker {
+    position: relative !important;
+    top: -290px !important;
+    left: 0 !important;
+}
+@endpush
 
 @section('content')
 
@@ -8,8 +15,8 @@
             <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger">
-                <h4 class="card-title">Nouvelle Actualités</h4>
-                <p class="card-category">Vous pouvez crée une nouvelle actualité</p>
+                <h4 class="card-title">Create a news</h4>
+                <p class="card-category">You can create a news</p>
                 </div>
                 <div class="card-body table-responsive">
                     <form method="POST" action="/actualite" enctype="multipart/form-data">
@@ -23,7 +30,7 @@
                                             <span class="btn btn-raised btn-round btn-default btn-file">
                                                 <span class="fileinput-new">Select image</span>
                                                 <span class="fileinput-exists">Change</span>
-                                                <input type="file" name="image" />
+                                                <input type="file" name="image" required/>
                                             </span>
                                             <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
                                                 <i class="fa fa-times"></i> Remove
@@ -35,30 +42,30 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="titleActu">Titre</label>
-                            <input type="text" class="form-control" id="titleActu" aria-describedby="titleHelper" name="title">
+                            <label for="titleActu">Title</label>
+                            <input type="text" class="form-control" id="titleActu" name="title" autofocus required>
                         </div>
                         <div class="form-group">
-                            <label for="contentActu">Contenu</label>
-                            <textarea class="form-control" id="contentActu" rows="3" name="content"></textarea>
+                            <label for="contentActu">Content</label>
+                            <textarea class="form-control" id="contentActu" rows="3" name="content" required></textarea>
                         </div>
                         
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="contentActu">Date d'apparition</label>
-                                    <input type="text" class="form-control datepicker" aria-describedby="titleHelper" name="start_date">
+                                    <label for="contentActu">Date of onset</label>
+                                    <input type="text" class="form-control datepicker" name="start_date" required>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="contentActu">Date de fin</label>
-                                    <input type="text" class="form-control datepicker" aria-describedby="titleHelper" name="end_date">
+                                    <label for="contentActu">Date of end</label>
+                                    <input type="text" class="form-control datepicker" name="end_date" required>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>
             </div>
@@ -72,7 +79,10 @@
 @push('js')
   <script>
     $('.datepicker').datetimepicker({
-        format: 'DD/MM/YYYY'
+        format: 'DD/MM/YYYY',
+        widgetPositioning: {
+            vertical: 'top'
+        }
     });
   </script>
 @endpush
