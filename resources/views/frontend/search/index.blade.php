@@ -65,7 +65,7 @@
                                 </small>
                             </strong>
                             {{ $rsl->desc }}
-                            <a href="{{ route('frontend.convention.show', $rsl->id) }}" class="tun-red--text">Lire la suite</a>
+                            <a href="#" class="tun-red--text">Lire la suite</a>
                         </p>
                     </div>
                 </div>
