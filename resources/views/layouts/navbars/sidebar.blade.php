@@ -18,19 +18,19 @@
         </a>
       </li>
       <li class="nav-item{{ $activePage == 'actualite' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('actualite') }}">
+        <a class="nav-link" href="{{ route('backend.actualite') }}">
           <i class="material-icons">create</i>
             <p>{{ __('News') }}</p>
         </a>
       </li>
       <li class="nav-item{{ $activePage == 'employe' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.employes') }}">
+        <a class="nav-link" href="{{ route('backend.employes') }}">
           <i class="material-icons">person</i>
             <p>{{ __('Employee') }}</p>
         </a>
       </li>
       <li class="nav-item{{ $activePage == 'conventions' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.convention') }}">
+        <a class="nav-link" href="{{ route('backend.convention') }}">
           <i class="material-icons">card_giftcard</i>
             <p>{{ __('Conventions') }}</p>
         </a>

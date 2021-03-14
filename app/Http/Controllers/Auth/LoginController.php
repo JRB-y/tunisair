@@ -66,7 +66,7 @@ class LoginController extends Controller
                     return redirect()->route('home');
                     break;
                 case 'employe':
-                    return redirect()->route('employe.index');
+                    return redirect()->route('frontend');
                     break;
             }
 

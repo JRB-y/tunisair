@@ -60,7 +60,7 @@ body {
   line-height: 1.5;
   color: #212529;
   text-align: left;
-  background-color: #fafafa;
+  background-color: white !important;
 }
 
 [tabindex="-1"]:focus {
@@ -14788,7 +14788,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .sidebar[data-color="orange"] li.active>a {
-  background-color: #ff9800;
+  background-color: #d40000;
   box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(255, 152, 0, 0.4);
 }
 
@@ -18856,6 +18856,10 @@ Copyright (c) 2015 Daniel Eden
     margin-bottom: 0;
     list-style: none;
 }
+}
 
+h6.tun-red--text, a.tun-red--text {
+  color: #d40000;
+}
 
 /*# sourceMappingURL=dashboard-free.css.map */

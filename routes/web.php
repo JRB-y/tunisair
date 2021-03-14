@@ -2,89 +2,80 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Backend\EmployeController;
+use App\Http\Controllers\Backend\ActualiteController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Backend\ConventionController;
+use App\Http\Controllers\Frontend\SearchController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Route::get('/guest', [App\Http\Controllers\GuestController::class, 'index'])->name('gest.index');
-Route::get('/employe', [App\Http\Controllers\EmployeController::class, 'index'])->name('employe.index');
+// Auth routes
+Auth::routes();
 
 Route::get('/', function () {
+    if (Auth::check()) {
+        if (request()->user()->role === 'admin') return redirect(route('home'));
+        if (request()->user()->role === 'employe') return redirect(route('frontend'));
+    }
+
     return view('auth.login');
 });
 
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Auth::routes();
-
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
-
+/** Loggedin routes  */
 Route::group(['middleware' => 'auth'], function () {
-	Route::get('table-list', function () {
-		return view('pages.table_list');
-	})->name('table');
 
-	Route::get('typography', function () {
-		return view('pages.typography');
-	})->name('typography');
+    /*******************************/
+    /** Employee routes (frontend) */
+    /******************************/
+    Route::group(['prefix' => 'site'], function () {
+        Route::get('/', [FrontendController::class, 'index'])->name('frontend');
+        Route::get('/actualites/{id}', [FrontendController::class, 'show'])->name('frontend.convention.show');
 
-	Route::get('icons', function () {
-		return view('pages.icons');
-	})->name('icons');
+        // display search by convention type
+        Route::get('search/{type}/{id}', [SearchController::class, 'show'])->name('frontend.display.search');
 
-	Route::get('map', function () {
-		return view('pages.map');
-	})->name('map');
+        // seach
+        Route::post('search', [SearchController::class, 'search'])->name('frontend.search');
+    });
 
-	Route::get('notifications', function () {
-		return view('pages.notifications');
-	})->name('notifications');
 
-	Route::get('rtl-support', function () {
-		return view('pages.language');
-	})->name('language');
+    
+    /**************************/
+    /** Admin routes (backend) */
+    /**************************/
+    Route::group(['prefix' => 'backend'], function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('home');
 
-	Route::get('upgrade', function () {
-		return view('pages.upgrade');
-	})->name('upgrade');
+        // auto generated from template
+        Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Backend\ProfileController@edit']);
+        Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\Backend\ProfileController@update']);
+        Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\Backend\ProfileController@password']);
+
+        Route::group(['prefix' => 'actualites'], function () {
+            Route::get('/', [ActualiteController::class, 'index'])->name('backend.actualite');
+            Route::get('/create', [ActualiteController::class, 'create'])->name('backend.actualite.create');
+            Route::post('/', [ActualiteController::class, 'store'])->name('backend.actualite.store');
+            Route::get('/{id}', [ActualiteController::class, 'show'])->name('backend.actualite.show');
+            Route::get('/edit/{id}', [ActualiteController::class, 'edit'])->name('backend.actualite.edit');
+            Route::post('/edit/{id}', [ActualiteController::class, 'update'])->name('backend.actualite.update');
+            Route::get('/active/{id}', [ActualiteController::class, 'active'])->name('backend.actualite.active');
+        });
+
+        Route::group(['prefix' => 'employees'], function () {
+            Route::get('/', [EmployeController::class, 'index'])->name('backend.employes');
+            Route::get('/create', [EmployeController::class, 'create'])->name('backend.employes.create');
+            Route::post('/', [EmployeController::class, 'store'])->name('backend.employes.store');
+            Route::get('/edit/{id}', [EmployeController::class, 'edit'])->name('backend.employes.edit');
+            Route::post('/edit/{id}', [EmployeController::class, 'update'])->name('backend.employes.update');
+            Route::get('/active/{id}', [EmployeController::class, 'active'])->name('backend.employes.active');
+        });
+
+        Route::group(['prefix' => 'conventions'], function () {
+            Route::get('/', [ConventionController::class, 'index'])->name('backend.convention');
+            Route::get('/create', [ConventionController::class, 'create'])->name('backend.convention.create');
+            Route::post('/', [ConventionController::class, 'store'])->name('backend.convention.store');
+            Route::get('/edit/{id}', [ConventionController::class, 'edit'])->name('backend.convention.edit');
+            Route::post('/edit/{id}', [ConventionController::class, 'update'])->name('backend.convention.update');
+        });
+    });
 });
-
-Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
-});
-
-Route::get('/actualite', [App\Http\Controllers\ActualiteController::class, 'index'])->name('actualite');
-Route::get('/actualite/create', [App\Http\Controllers\ActualiteController::class, 'create'])->name('actualite.create');
-Route::post('/actualite', [App\Http\Controllers\ActualiteController::class, 'store'])->name('actualite.store');
-Route::get('/actualite/{id}', [App\Http\Controllers\ActualiteController::class, 'show'])->name('actualite.store');
-Route::get('/actualite/active/{id}', [App\Http\Controllers\ActualiteController::class, 'active'])->name('actualite.active');
-Route::get('/actualite/edit/{id}', [App\Http\Controllers\ActualiteController::class, 'edit'])->name('actualite.edit');
-Route::post('/actualite/edit/{id}', [App\Http\Controllers\ActualiteController::class, 'update'])->name('actualite.update');
-
-Route::get('/employes', [App\Http\Controllers\AdminEmployeController::class, 'index'])->name('admin.employes');
-Route::get('/employes/create', [App\Http\Controllers\AdminEmployeController::class, 'create'])->name('admin.employes.create');
-Route::post('/employes', [App\Http\Controllers\AdminEmployeController::class, 'store'])->name('admin.employes.store');
-Route::get('/employes/edit/{id}', [App\Http\Controllers\AdminEmployeController::class, 'edit'])->name('admin.employes.edit');
-Route::post('/employes/edit/{id}', [App\Http\Controllers\AdminEmployeController::class, 'update'])->name('admin.employes.update');
-Route::get('/employes/active/{id}', [App\Http\Controllers\AdminEmployeController::class, 'active'])->name('admin.employes.active');
-
-Route::get('/conventions', [App\Http\Controllers\AdminConventionController::class, 'index'])->name('admin.convention');
-Route::get('/conventions/create', [App\Http\Controllers\AdminConventionController::class, 'create'])->name('admin.convention.create');
-Route::post('/conventions', [App\Http\Controllers\AdminConventionController::class, 'store'])->name('admin.convention.store');
-Route::get('/conventions/edit/{id}', [App\Http\Controllers\AdminConventionController::class, 'edit'])->name('admin.convention.edit');
-Route::post('/conventions/edit/{id}', [App\Http\Controllers\AdminConventionController::class, 'update'])->name('admin.convention.update');

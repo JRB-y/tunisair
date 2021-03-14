@@ -17,7 +17,7 @@ class CreateConventionsTable extends Migration
             $table->id();
             $table->string('city');
             $table->string('name');
-            $table->string('desc');
+            $table->text('desc');
             $table->string('address');
             $table->string('image');
             $table->string('spec')->nullable();
