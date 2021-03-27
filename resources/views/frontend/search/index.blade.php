@@ -20,12 +20,17 @@
                 </div>
             </div>
     
-            @if ($type->id === 3)
+            @if (intval($type->id) === 3)
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">
                             <label for="specialite">Speciality</label>
-                            <input type="text" class="form-control" id="specialite" name="doctor_speciality" autofocus required placeholder="Doctor's specitality">
+                            <select name="doctor_speciality" class="form-control">
+                                <option value="all">All</option>
+                                @foreach($specialites as $spec) 
+                                    <option value="{{$spec}}">{{$spec}}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>

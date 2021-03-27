@@ -2,18 +2,33 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use App\Models\Type;
+use App\Models\Convention;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {
     public function show($search, $id)
     {
         $type = Type::find($id);
+        $specialites = [];
+      
+        if (intval($id) === 3) {
+            $specialites = DB::table('conventions')
+            ->select('spec')
+            ->distinct()
+            ->where('type_id', 3)
+            ->where('spec', '!=', null)
+            ->pluck('spec');
+        }
+
+
         return view('frontend.search.index')
             ->with('search', $search)
-            ->with('type', $type);
+            ->with('type', $type)
+            ->with('specialites', $specialites);
     }
 
     public function search(Request $request)
@@ -37,8 +52,7 @@ class SearchController extends Controller
             return $q;
         });
 
-
-        if ($search_type === 3 && $doctor_speciality) {
+        if ($search_type === 3 && $doctor_speciality !== 'all') {
             $results->where('spec', 'like', '%' . $doctor_speciality . '%');
         }
 

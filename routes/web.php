@@ -7,6 +7,7 @@ use App\Http\Controllers\Backend\EmployeController;
 use App\Http\Controllers\Backend\ActualiteController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ConventionController;
+use App\Http\Controllers\Frontend\FlightController;
 use App\Http\Controllers\Frontend\SearchController;
 
 // Auth routes
@@ -36,6 +37,14 @@ Route::group(['middleware' => 'auth'], function () {
 
         // seach
         Route::post('search', [SearchController::class, 'search'])->name('frontend.search');
+
+        // Daily Flights
+        Route::get('daily-flights', [FlightController::class, 'daily'])->name('frontend.daily-flights');
+
+        // Agencies
+        Route::get('agencies', function () {
+            return view('frontend.agencies.index');
+        })->name('frontend.agencies-map');
     });
 
 

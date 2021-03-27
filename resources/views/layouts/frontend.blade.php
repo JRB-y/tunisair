@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ __('Material Dashboard Laravel - Free Frontend Preset for Laravel') }}</title>
+    <title>{{ __('Tunisair Frontend') }}</title>
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('material') }}/img/apple-icon.png">
     <link rel="icon" type="image/png" href="{{ asset('material') }}/img/favicon.png">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
- 
     <!-- CSS Files -->
     <link href="{{ asset('material') }}/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
+    @stack('css')
 
     </head>
     <body>
@@ -35,14 +35,29 @@
                 <div class="collapse navbar-collapse justify-content-end">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        Bienvenue <b>{{ Auth::user()->firstname . ' ' . Auth::user()->lastname }}</b>
+                        <a href="{{ route('frontend') }}" class="nav-link">
+                            <i class="material-icons">home</i>
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('frontend.agencies-map') }}" class="nav-link">
+                            <i class="material-icons">map</i>
+                            Agencies
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('frontend.daily-flights') }}" class="nav-link">
+                            <i class="material-icons">flight_land</i>
+                            Daily Flights
+                        </a>
                     </li>
                     <li class="nav-item ">
                         <li class="nav-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <a href="{{ route('register') }}" class="nav-link">
-                                <i class="material-icons">logout</i> {{ __('Deconnexion') }}
+                                <i class="material-icons">logout</i> {{ __('Logout') }}
                             </a>
-                            </li>
+                        </li>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>

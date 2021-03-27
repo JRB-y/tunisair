@@ -78,10 +78,17 @@
 @endsection
 @push('js')
   <script>
+    var date = new Date();
+    date.setDate(date.getDate()-1);
     $('.datepicker').datetimepicker({
         format: 'DD/MM/YYYY',
+        minDate: new Date(),
         widgetPositioning: {
             vertical: 'top'
+        },
+        icons: {
+            previous: 'fa fa-arrow-left',
+            next: 'fa fa-arrow-right',
         }
     });
   </script>

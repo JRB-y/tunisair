@@ -12,7 +12,7 @@
                 <p class="card-category">You can edit this news</p>
                 </div>
                 <div class="card-body table-responsive">
-                    <form method="POST" action="/actualite/edit/{{$actualite->id}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('backend.actualite.update', $actualite->id)}}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <div class="row">

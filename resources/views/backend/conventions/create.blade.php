@@ -60,7 +60,11 @@
                         </div>
                         <div class="form-group" id="speciality">
                             <label for="contentActu">Speciality valide only for doctors</label>
-                            <input type="text" class="form-control"  aria-describedby="titleHelper" name="spec" value="{{ old('spec') }}">
+                            <select name="spec" class="form-control">
+                                <option value="Dentiste">Dentiste</option>
+                                <option value="Généraliste">Généraliste</option>
+                            </select>
+                            {{-- <input type="text" class="form-control"  aria-describedby="titleHelper" name="spec" value="{{ old('spec') }}"> --}}
                         </div>
                         <button type="submit" class="btn btn-primary">Sauvegarder</button>
                     </form>
