@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\FrontendController;
 use App\Http\Controllers\Backend\EmployeController;
 use App\Http\Controllers\Backend\ActualiteController;
+use App\Http\Controllers\Backend\BannerController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\ConventionController;
 use App\Http\Controllers\Frontend\FlightController;
@@ -86,5 +87,15 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/edit/{id}', [ConventionController::class, 'edit'])->name('backend.convention.edit');
             Route::post('/edit/{id}', [ConventionController::class, 'update'])->name('backend.convention.update');
         });
+
+        Route::group(['prefix' => 'banner'], function () {
+            Route::get('/', [BannerController::class, 'index'])->name('backend.banner.index');
+            Route::get('/create', [BannerController::class, 'create'])->name('backend.banner.create');
+            Route::post('/store', [BannerController::class, 'store'])->name('backend.banner.store');
+            Route::get('/{id}', [BannerController::class, 'show'])->name('backend.banner.show');
+            Route::get('/edit/{id}', [BannerController::class, 'edit'])->name('backend.banner.edit');
+            Route::post('/update/{id}', [BannerController::class, 'update'])->name('backend.banner.update');
+        });
+
     });
 });

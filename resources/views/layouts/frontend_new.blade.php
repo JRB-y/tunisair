@@ -6,14 +6,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <meta name="format-detection" content="telephone=no" />
-        <link rel="shortcut icon" href="favicon.ico"/> 
-        <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset('frontend/css/jquery-ui.structure.min.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{asset('frontend/css/jquery-ui.min.css')}}" rel="stylesheet" type="text/css"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">        
-        <link href="{{asset('frontend/css/style.css')}}" rel="stylesheet" type="text/css"/>
-        @stack('css')
-        <title>Tunisair</title>
+    <link rel="shortcut icon" href="favicon.ico"/> 
+    <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('frontend/css/jquery-ui.structure.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('frontend/css/jquery-ui.min.css')}}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">        
+    <link href="{{asset('frontend/css/style.css')}}" rel="stylesheet" type="text/css"/>
+    @stack('css')
+    <title>Tunisair</title>
   </head>
 <body class="no-overflow" data-color="theme-1">
     <div class="loading blue">
@@ -26,44 +26,43 @@
             </div>
         </div>
     </div>
-  
-  <header class="color-1 hovered menu-3">
-   <div class="container">
-   	  <div class="row">
-   	  	 <div class="col-md-12">
-  	  	    <div class="nav"> 
-            <a href="{{ route('frontend') }}" class="logo">
-                <img src="{{ asset('material') }}/img/Tunisair_logo.png" width="250">
-   	  	    </a>
-   	  	   
-                <nav class="menu">
-                    <ul>
-                        <li class="type-1 @if($page_title === 'home') active @endif">
-                            <a href="{{ route('frontend') }}">Home</a>
-                        </li>
-                        <li class="type-1 @if($page_title === 'agencies') active @endif">
-                            <a href="{{ route('frontend.agencies-map') }}">Agencies</a>
-                        </li>
-                        <li class="type-1 @if($page_title === 'daily') active @endif">
-                            <a href="{{ route('frontend.daily-flights') }}">Daily Flights</a>
-                        </li>
-                        <li class="type-1">
-                            <li class="nav-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                <a href="{{ route('register') }}" class="nav-link">
-                                    {{ __('Logout') }}
-                                </a>
-                            </li>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </li>
-                    </ul>
-                </nav>
-		   </div>
-   	  	 </div>
-   	  </div>
-   </div>
-  </header>
+    <header class="color-1 hovered menu-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nav"> 
+                    <a href="{{ route('frontend') }}" class="logo">
+                        <img src="{{ asset('material') }}/img/Tunisair_logo.png" width="250">
+                    </a>
+                
+                        <nav class="menu">
+                            <ul>
+                                <li class="type-1 @if($page_title === 'home') active @endif">
+                                    <a href="{{ route('frontend') }}">Home</a>
+                                </li>
+                                <li class="type-1 @if($page_title === 'agencies') active @endif">
+                                    <a href="{{ route('frontend.agencies-map') }}">Agencies</a>
+                                </li>
+                                <li class="type-1 @if($page_title === 'daily') active @endif">
+                                    <a href="{{ route('frontend.daily-flights') }}">Daily Flights</a>
+                                </li>
+                                <li class="type-1">
+                                    <li class="nav-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <a href="{{ route('register') }}" class="nav-link">
+                                            {{ __('Logout') }}
+                                        </a>
+                                    </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+                        </nav>
+                </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
     @yield('content')
 
@@ -163,16 +162,16 @@
     	  </div>
     	</div>
     </footer>
-<script src="{{ asset('frontend/js/jquery-2.1.4.min.js') }}"></script>
-<script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
-<script src="{{ asset('frontend/js/idangerous.swiper.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.viewportchecker.min.js') }}"></script>
-<script src="{{ asset('frontend/js/isotope.pkgd.min.js') }}"></script>
-<script src="{{ asset('frontend/js/jquery.mousewheel.min.js') }}"></script>
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>	
-<script src="{{ asset('frontend/js/map.js') }}"></script>	
-<script src="{{ asset('frontend/js/all.js') }}"></script>
-@stack('js')
+    <script src="{{ asset('frontend/js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/idangerous.swiper.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.viewportchecker.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/isotope.pkgd.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.mousewheel.min.js') }}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>	
+    <script src="{{ asset('frontend/js/map.js') }}"></script>	
+    <script src="{{ asset('frontend/js/all.js') }}"></script>
+    @stack('js')
 </body>
 </html>

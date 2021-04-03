@@ -6,31 +6,34 @@
     <div class="row no-margin">
         <div class="swiper-container main-slider-4" data-autoplay="0" data-loop="1" data-speed="800" data-center="0" data-slides-per-view="1">
             <div class="swiper-wrapper">
-                <div class="swiper-slide active" data-val="0">
-                    <div class="hover-blue black-hover h_100">
-                        <div class="clip">
-                            <div class="bg bg-bg-chrome act" style="background-image:url('frontend/img/home_4/slide_1.jpg')"></div>
-                        </div>
-                        <div class="tour-layer delay-1"></div>
-                        <div class="vertical-align">
-                            <div class="item-block style-4">
-                                <div class="vertical-align">
-                                    <h4>Demo<b>Slider</b></h4>
-                                    <div class="rate">
-                                        <span class="fa fa-star color-yellow"></span>
-                                        <span class="fa fa-star color-yellow"></span>
-                                        <span class="fa fa-star color-yellow"></span>
-                                        <span class="fa fa-star color-yellow"></span>
-                                        <span class="fa fa-star color-yellow"></span>
+                @foreach ($banners as $banner)
+                    <div class="swiper-slide active" data-val="0">
+                        <div class="hover-blue black-hover h_100">
+                            <div class="clip">
+                                <div class="bg bg-bg-chrome act" style="background-image:url('{{asset('app/' . $banner->image)}}')"></div>
+                            </div>
+                            <div class="tour-layer delay-1"></div>
+                            <div class="vertical-align">
+                                <div class="item-block style-4">
+                                    <div class="vertical-align">
+                                        {{-- <h4>Demo<b>Slider 1</b></h4> --}}
+                                        <h3 class="hover-it">{{ $banner->title }}</h3>
+                                        <div class="rate">
+                                            <span class="fa fa-star color-yellow"></span>
+                                            <span class="fa fa-star color-yellow"></span>
+                                            <span class="fa fa-star color-yellow"></span>
+                                            <span class="fa fa-star color-yellow"></span>
+                                            <span class="fa fa-star color-yellow"></span>
+                                        </div>
+                                        <div class="main-date">{{ $banner->text }}.</strong></div>
                                     </div>
-                                    <h3 class="hover-it">Tunisair Slider</h3>
-                                    <div class="main-date">Lorem ipsum dolor sit amet consectetur.</strong></div>
-                                    <p>Curabitur nunc erat, consequat in erat ut, congue bibendum nulla. Suspendisse id pharetra lacus, et hendrerit elementum.</p>  
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
+                
             </div>
             <div class="pagination poin-style-1"></div>
         </div>
@@ -42,6 +45,9 @@
                 <div class="ff_text">Curabitur nunc erat, consequat in erat ut, congue bibendum nulla suspendisse</div>
             </div>
         </div>	      	 		
+
+
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, fugit! Libero ipsum id ut quos aliquam fuga corrupti amet! Tempora alias libero ut mollitia cum sequi voluptas odit molestias fugit.
     </div>
 </div>
 

@@ -35,6 +35,12 @@
             <p>{{ __('Conventions') }}</p>
         </a>
       </li>
+      <li class="nav-item{{ $activePage == 'banner' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('backend.banner.index') }}">
+          <i class="material-icons">card_giftcard</i>
+            <p>{{ __('Banners') }}</p>
+        </a>
+      </li>
     </ul>
   </div>
 </div>

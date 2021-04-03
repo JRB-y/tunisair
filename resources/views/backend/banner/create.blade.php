@@ -1,4 +1,4 @@
-@extends('layouts.app', ['activePage' => 'conventions'])
+@extends('layouts.app', ['activePage' => 'banner'])
 
 @section('content')
 
@@ -8,11 +8,11 @@
             <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-header card-header-danger">
-                <h4 class="card-title">New convention</h4>
-                <p class="card-category">You can create a convention</p>
+                <h4 class="card-title">New banner</h4>
+                <p class="card-category">You can create a banner</p>
                 </div>
                 <div class="card-body table-responsive">
-                    <form method="POST" action="{{ route('backend.convention.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('backend.banner.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">
@@ -34,37 +34,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="titleActu">Convention type</label>
                             <select name="type_id" class="form-control" id="select_type" onchange="typeChanged()">
                                 @foreach ($types as $type)
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
                             </select>
+                        </div> --}}
+                        <div class="form-group">
+                            <label for="titleActu">Title</label>
+                            <input type="text" class="form-control"  aria-describedby="titleHelper" name="title" value="{{ old('title') }}">
                         </div>
                         <div class="form-group">
-                            <label for="titleActu">Name</label>
-                            <input type="text" class="form-control"  aria-describedby="titleHelper" name="name" value="{{ old('name') }}">
+                            <label for="contentActu">Text</label>
+                            <textarea class="form-control" id="contentActu" rows="3" name="text">{{ old('text') ? old('text') : '' }}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="titleActu">City</label>
-                            <input type="text" class="form-control"  aria-describedby="titleHelper" name="city"  value="{{ old('city') }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="titleActu">Address</label>
-                            <input type="text" class="form-control"  aria-describedby="titleHelper" name="address"  value="{{ old('address') }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="contentActu">Description</label>
-                            <textarea class="form-control" id="contentActu" rows="3" name="desc">{{ old('desc') ? old('desc') : '' }}</textarea>
-                        </div>
-                        <div class="form-group" id="speciality">
-                            <label for="contentActu">Speciality valide only for doctors</label>
-                            <select name="spec" class="form-control">
-                                <option value="Dentiste">Dentiste</option>
-                                <option value="Généraliste">Généraliste</option>
-                            </select>
-                            {{-- <input type="text" class="form-control"  aria-describedby="titleHelper" name="spec" value="{{ old('spec') }}"> --}}
+                            <label for="titleActu">Order</label>
+                            <input type="number" class="form-control"  aria-describedby="titleHelper" name="order"  value="{{ old('order') }}">
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
@@ -77,26 +65,3 @@
 
 
 @endsection
-
-@push('js')
-    <script>
-        function checkType () {
-            const select = document.getElementById('select_type')
-            const selectedOption = select.selectedOptions[0].value
-            const sepciality = document.getElementById('speciality')
-
-            if (selectedOption === '3') {
-                sepciality.style.display = 'block'
-            } else {
-                sepciality.style.display = 'none'
-            }
-        }
-
-        function typeChanged () {
-            checkType()
-        }
-
-        checkType()
-
-    </script>
-@endpush
