@@ -110,7 +110,7 @@
                                 <div class="swiper-slide">
                                     <div class="hotel-item style-3">
                                         <div class="radius-top">
-                                            <img src="https://via.placeholder.com/50" alt="">
+                                            <img src="{{ $type->image }}" style="height: 300px;">
                                         </div>
                                         <div class="title clearfix">
                                             <h4>

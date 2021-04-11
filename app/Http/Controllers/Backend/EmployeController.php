@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Child;
+use App\Models\Conjoint;
+use App\Models\Situation;
 use Illuminate\Support\Facades\Hash;
 
 class EmployeController extends Controller
@@ -27,7 +30,8 @@ class EmployeController extends Controller
      */
     public function create()
     {
-        return view('backend.employe.create');
+        $situations = Situation::all();
+        return view('backend.employe.create')->with('situations', $situations);
     }
 
     /**
@@ -54,9 +58,33 @@ class EmployeController extends Controller
         $user->password = Hash::make($request->password);
         $user->role = 'employe';
         $user->active = $request->active  === 'on' ? true : false;
+        $user->situation_id = $request->situation_id;
+        $user->age = $request->age;
+        $user->gender = $request->gender;
+        $user->post = $request->post;
 
         $user->save();
 
+        $conjoint = new Conjoint();
+        $conjoint->firstname = $request->spouseFirstname;
+        $conjoint->lastname = $request->spouseLastname;
+        $conjoint->age = $request->spouseAge;
+        $conjoint->gender = $request->spouseGender;
+        $conjoint->user_id = $user->id;
+        $conjoint->save();
+
+        $childrenCount = count($request->childFirstname);
+        for ($i=0; $i < $childrenCount; $i++) {
+            if ($request->childFirstname[$i] !== null) {
+                $child = new Child();
+                $child->firstname = $request->childFirstname[$i];
+                $child->lastname = $request->childLastname[$i];
+                $child->age = $request->childAge[$i];
+                $child->gender = $request->childGender[$i];
+                $child->user_id = $user->id;
+                $child->save();
+            }
+        }
         return redirect()->route('backend.employes');
     }
 
@@ -79,8 +107,9 @@ class EmployeController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('backend.employe.edit')->with('user', $user);
+        $user = User::with('conjoint')->with('children')->where('id', $id)->first();
+        $situations = Situation::all();
+        return view('backend.employe.create')->with('user', $user)->with('situations', $situations);
     }
 
     /**
@@ -93,17 +122,50 @@ class EmployeController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
- 
+
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
         $user->phone = $request->phone;
         $user->email = $request->email;
+        $user->role = 'employe';
+        $user->active = $request->active  === 'on' ? true : false;
+        $user->situation_id = $request->situation_id;
+        $user->age = $request->age;
+        $user->gender = $request->gender;
+        $user->post = $request->post;
         if ($request->password !== '') {
             $user->password = Hash::make($request->password);
         }
 
         $user->save();
 
+
+        $conjoint = Conjoint::where('user_id', $user->id)->first();
+        if (!$conjoint) {
+            $conjoint = new Conjoint();
+        }
+    
+        $conjoint->firstname = $request->spouseFirstname;
+        $conjoint->lastname = $request->spouseLastname;
+        $conjoint->age = $request->spouseAge;
+        $conjoint->gender = $request->spouseGender;
+        $conjoint->user_id = $user->id;
+        $conjoint->save();
+
+
+        Child::where('user_id', $user->id)->delete();
+        $childrenCount = count($request->childFirstname);
+        for ($i=0; $i < $childrenCount; $i++) {
+            if ($request->childFirstname[$i] !== null) {
+                $child = new Child();
+                $child->firstname = $request->childFirstname[$i];
+                $child->lastname = $request->childLastname[$i];
+                $child->age = $request->childAge[$i];
+                $child->gender = $request->childGender[$i];
+                $child->user_id = $user->id;
+                $child->save();
+            }
+        }
         return redirect()->route('backend.employes');
     }
 
