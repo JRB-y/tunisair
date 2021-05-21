@@ -113,26 +113,26 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="spouseFirstname">Firstname</label>
-                                    <input type="text" class="form-control" id="spouseFirstname" aria-describedby="titleHelper" name="spouseFirstname" required value="{{ $editMode ? $user->conjoint->firstname : old('spouseFirstname') }}">
+                                    <input type="text" class="form-control" id="spouseFirstname" aria-describedby="titleHelper" name="spouseFirstname" value="{{ $editMode && $user->conjoint ? $user->conjoint->firstname : old('spouseFirstname') }}">
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group">
                                     <label for="spouseLastname">Lastname</label>
-                                    <input type="text" class="form-control" id="spouseLastname" aria-describedby="titleHelper" name="spouseLastname" required value="{{ $editMode ? $user->conjoint->lastname :  old('spouseLastname') }}">
+                                    <input type="text" class="form-control" id="spouseLastname" aria-describedby="titleHelper" name="spouseLastname" value="{{ $editMode && $user->conjoint ? $user->conjoint->lastname :  old('spouseLastname') }}">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
                                     <label for="spouseAge">Age</label>
-                                    <input type="text" class="form-control" id="spouseAge" aria-describedby="titleHelper" name="spouseAge" required value="{{ $editMode ? $user->conjoint->age :  old('spouseAge') }}">
+                                    <input type="text" class="form-control" id="spouseAge" aria-describedby="titleHelper" name="spouseAge" value="{{ $editMode && $user->conjoint ? $user->conjoint->age :  old('spouseAge') }}">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
                                     <select name="spouseGender" class="form-control" id="spouseGender">
-                                        <option value="0" {{  $editMode && $user->conjoint->gender === 0 ? 'selected' : '' }}>Male</option>
-                                        <option value="1" {{  $editMode && $user->conjoint->gender === 1 ? 'selected' : '' }}>Female</option>
+                                        <option value="0" {{ $editMode && $user->conjoint && $user->conjoint->gender === 0 ? 'selected' : '' }}>Male</option>
+                                        <option value="1" {{ $editMode && $user->conjoint && $user->conjoint->gender === 1 ? 'selected' : '' }}>Female</option>
                                     </select>
                                 </div>
                             </div>

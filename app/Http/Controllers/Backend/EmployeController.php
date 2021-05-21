@@ -139,31 +139,38 @@ class EmployeController extends Controller
 
         $user->save();
 
-
-        $conjoint = Conjoint::where('user_id', $user->id)->first();
-        if (!$conjoint) {
-            $conjoint = new Conjoint();
+        if ($request->spouseFirstname && $request->spouseLastname) {
+            $conjoint = Conjoint::where('user_id', $user->id)->first();
+            if (!$conjoint) {
+                $conjoint = new Conjoint();
+            }
+        
+            $conjoint->firstname = $request->spouseFirstname;
+            $conjoint->lastname = $request->spouseLastname;
+            $conjoint->age = $request->spouseAge;
+            $conjoint->gender = $request->spouseGender;
+            $conjoint->user_id = $user->id;
+            $conjoint->save();
         }
-    
-        $conjoint->firstname = $request->spouseFirstname;
-        $conjoint->lastname = $request->spouseLastname;
-        $conjoint->age = $request->spouseAge;
-        $conjoint->gender = $request->spouseGender;
-        $conjoint->user_id = $user->id;
-        $conjoint->save();
 
-
-        Child::where('user_id', $user->id)->delete();
-        $childrenCount = count($request->childFirstname);
-        for ($i=0; $i < $childrenCount; $i++) {
-            if ($request->childFirstname[$i] !== null) {
-                $child = new Child();
-                $child->firstname = $request->childFirstname[$i];
-                $child->lastname = $request->childLastname[$i];
-                $child->age = $request->childAge[$i];
-                $child->gender = $request->childGender[$i];
-                $child->user_id = $user->id;
-                $child->save();
+        if (
+            count($request->childFirstname) !== 1 &&
+            count($request->childLastname) !== 1 &&
+            count($request->childAge) !== 1 &&
+            count($request->childGender) !== 1
+        ) {
+            Child::where('user_id', $user->id)->delete();
+            $childrenCount = count($request->childFirstname);
+            for ($i=0; $i < $childrenCount; $i++) {
+                if ($request->childFirstname[$i] !== null) {
+                    $child = new Child();
+                    $child->firstname = $request->childFirstname[$i];
+                    $child->lastname = $request->childLastname[$i];
+                    $child->age = $request->childAge[$i];
+                    $child->gender = $request->childGender[$i];
+                    $child->user_id = $user->id;
+                    $child->save();
+                }
             }
         }
         return redirect()->route('backend.employes');
