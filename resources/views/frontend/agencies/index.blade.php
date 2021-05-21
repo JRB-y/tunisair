@@ -1,4 +1,4 @@
-@extends('layouts.frontend_new', ['page_title' => 'agencies'])
+@extends('layouts.frontend', ['page_title' => 'agencies'])
 
 @section('content')
     <div class="row">

@@ -1,4 +1,4 @@
-@extends('layouts.frontend_new', ['page_title' => 'home'])
+@extends('layouts.frontend', ['page_title' => 'home'])
 
 @section('content')
 <div class="container" style="margin-top: 120px; margin-bottom: 120px;">

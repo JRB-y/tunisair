@@ -1,4 +1,4 @@
-@extends('layouts.frontend_new', ['page_title' => 'daily'])
+@extends('layouts.frontend', ['page_title' => 'daily'])
 @push('css')
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
 @endpush

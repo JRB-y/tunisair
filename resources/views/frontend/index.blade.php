@@ -1,4 +1,4 @@
-@extends('layouts.frontend_new', ['page_title' => 'home'])
+@extends('layouts.frontend', ['page_title' => 'home'])
 @section('content')
 
 <!-- TOP BANNER -->
