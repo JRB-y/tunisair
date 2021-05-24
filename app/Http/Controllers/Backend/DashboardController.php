@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\TicketRequest;
 
 class DashboardController extends Controller
 {
@@ -25,6 +26,17 @@ class DashboardController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('backend.dashboard')->with('users', $users);
+
+        $empCount = User::where('role', '=', 'employe')->count();
+        $pendingRequests = TicketRequest::where('status', 'pending')->count();
+        $approvedRequests = TicketRequest::where('status', 'approved')->count();
+        $declinedRequests = TicketRequest::where('status', 'declined')->count();
+
+        return view('backend.dashboard')
+            ->with('users', $users)
+            ->with('empCount', $empCount)
+            ->with('pendingRequests', $pendingRequests)
+            ->with('declinedRequests', $declinedRequests)
+            ->with('approvedRequests', $approvedRequests);
     }
 }

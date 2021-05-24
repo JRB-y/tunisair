@@ -46,10 +46,12 @@ class ConventionController extends Controller
             'city' => 'required',
             'address' => 'required',
             'desc' => 'required',
-            'image' => 'required'
         ]);
         
-        $path = Storage::disk('local')->put('actualites', $request->file('image'));
+        $path = null;
+        if ($request->hasFile('image')) {
+            $path = Storage::disk('local')->put('actualites', $request->file('image'));
+        }
 
         $convention = new Convention();
         $convention->type_id = $request->type_id;

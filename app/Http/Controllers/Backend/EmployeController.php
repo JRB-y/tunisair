@@ -46,7 +46,7 @@ class EmployeController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'phone' => 'required',
-            'email' => 'required:email',
+            'email' => 'required:email|unique:users',
             'password' => 'required:min:4',
         ]);
 
@@ -62,16 +62,20 @@ class EmployeController extends Controller
         $user->age = $request->age;
         $user->gender = $request->gender;
         $user->post = $request->post;
+        $user->emp_category = $request->emp_category;
+        $user->emp_function = $request->emp_function;
 
         $user->save();
-
-        $conjoint = new Conjoint();
-        $conjoint->firstname = $request->spouseFirstname;
-        $conjoint->lastname = $request->spouseLastname;
-        $conjoint->age = $request->spouseAge;
-        $conjoint->gender = $request->spouseGender;
-        $conjoint->user_id = $user->id;
-        $conjoint->save();
+        
+        if ($request->spouseFirstname && $request->spouseLastname) {
+            $conjoint = new Conjoint();
+            $conjoint->firstname = $request->spouseFirstname;
+            $conjoint->lastname = $request->spouseLastname;
+            $conjoint->age = $request->spouseAge;
+            $conjoint->gender = $request->spouseGender;
+            $conjoint->user_id = $user->id;
+            $conjoint->save();
+        }
 
         $childrenCount = count($request->childFirstname);
         for ($i=0; $i < $childrenCount; $i++) {
@@ -133,6 +137,8 @@ class EmployeController extends Controller
         $user->age = $request->age;
         $user->gender = $request->gender;
         $user->post = $request->post;
+        $user->emp_category = $request->emp_category;
+        $user->emp_function = $request->emp_function;
         if ($request->password !== '') {
             $user->password = Hash::make($request->password);
         }

@@ -20,6 +20,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'emp_category',
+        'emp_function',
     ];
 
     /**
@@ -49,5 +51,10 @@ class User extends Authenticatable
     public function children()
     {
         return $this->hasMany(Child::class);
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(TicketRequest::class);
     }
 }

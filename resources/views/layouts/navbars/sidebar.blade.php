@@ -5,7 +5,7 @@
       Tip 2: you can also add an image using data-image tag
   -->
   <div class="logo">
-    <a href="/home" class="simple-text logo-normal">
+    <a href="{{ route('root') }}" class="simple-text logo-normal">
       {{ __('Tunisair') }}
     </a>
   </div>
@@ -39,6 +39,12 @@
         <a class="nav-link" href="{{ route('backend.banner.index') }}">
           <i class="material-icons">card_giftcard</i>
             <p>{{ __('Banners') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'ticket-requests' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('backend.ticket-requests.index') }}">
+          <i class="material-icons">flight</i>
+            <p>{{ __('Ticket Requests') }}</p>
         </a>
       </li>
     </ul>

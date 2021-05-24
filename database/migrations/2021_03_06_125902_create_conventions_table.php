@@ -19,7 +19,7 @@ class CreateConventionsTable extends Migration
             $table->string('name');
             $table->text('desc');
             $table->string('address');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('spec')->nullable();
             $table->foreignId('type_id');
             $table->timestamps();

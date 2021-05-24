@@ -2,14 +2,17 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend\FrontendController;
-use App\Http\Controllers\Backend\EmployeController;
-use App\Http\Controllers\Backend\ActualiteController;
 use App\Http\Controllers\Backend\BannerController;
-use App\Http\Controllers\Backend\DashboardController;
-use App\Http\Controllers\Backend\ConventionController;
+use App\Http\Controllers\Backend\EmployeController;
 use App\Http\Controllers\Frontend\FlightController;
 use App\Http\Controllers\Frontend\SearchController;
+use App\Http\Controllers\Backend\ActualiteController;
+use App\Http\Controllers\Backend\DashboardController;
+use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Backend\ConventionController;
+use App\Http\Controllers\Frontend\TicketRequestController as TicketRequestFront;
+use App\Http\Controllers\Backend\TicketRequestController as TicketRequestBack;
+use App\Http\Controllers\Frontend\QuotaControlService;
 
 // Auth routes
 Auth::routes();
@@ -21,13 +24,13 @@ Route::get('/', function () {
     }
 
     return view('auth.login');
-});
+})->name('root');
 
 /** Loggedin routes  */
 Route::group(['middleware' => 'auth'], function () {
 
     /*******************************/
-    /** Employee routes (frontend) */
+    /** FRONT END ROUTES           */
     /******************************/
     Route::group(['prefix' => 'site'], function () {
         Route::get('/', [FrontendController::class, 'index'])->name('frontend');
@@ -46,12 +49,18 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('agencies', function () {
             return view('frontend.agencies.index');
         })->name('frontend.agencies-map');
+
+        Route::get('/tickets', [TicketRequestFront::class, 'index'])->name('frontend.tickets.index');
+        Route::get('/tickets/{flightId}', [TicketRequestFront::class, 'buy'])->name('frontend.tickets.buy');
+        Route::get('/tickets/dismiss/{flightId}', [TicketRequestFront::class, 'dismiss'])->name('frontend.tickets.dismiss');
+
+        Route::post('/tickets/search', [QuotaControlService::class, 'search'])->name('frontend.search.vols');
     });
 
 
     
     /**************************/
-    /** Admin routes (backend) */
+    /** BACKEND ROUTES        */
     /**************************/
     Route::group(['prefix' => 'backend'], function () {
         Route::get('/', [DashboardController::class, 'index'])->name('home');
@@ -95,6 +104,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/{id}', [BannerController::class, 'show'])->name('backend.banner.show');
             Route::get('/edit/{id}', [BannerController::class, 'edit'])->name('backend.banner.edit');
             Route::post('/update/{id}', [BannerController::class, 'update'])->name('backend.banner.update');
+        });
+
+        Route::group(['prefix' => 'ticket-requests'], function () {
+            Route::get('/', [TicketRequestBack::class, 'index'])->name('backend.ticket-requests.index');
+            Route::get('/{requestId}', [TicketRequestBack::class, 'show'])->name('backend.ticket-requests.show');
+
+            Route::get('/approve/{id}', [TicketRequestBack::class, 'approve'])->name('backend.ticket-requests.approve');
+            Route::get('/decline/{id}', [TicketRequestBack::class, 'decline'])->name('backend.ticket-requests.decline');
         });
 
     });

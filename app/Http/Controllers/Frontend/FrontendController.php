@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use Carbon\Carbon;
+use App\Models\Vol;
 use App\Models\Type;
-use App\Models\Actualite;
-use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Actualite;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class FrontendController extends Controller
 {
@@ -23,10 +25,24 @@ class FrontendController extends Controller
 
         $banners = Banner::all();
 
+        $vols = Vol::all();
+
+        $from = DB::table('vols')
+            ->select('escale_depart')
+            ->distinct()
+            ->pluck('escale_depart');
+        $to = DB::table('vols')
+            ->select('escale_arrive')
+            ->distinct()
+            ->pluck('escale_arrive');
+
         return view('frontend.index')
             ->with('actualites', $actus)
             ->with('convention_types', $convention_types)
-            ->with('banners', $banners);
+            ->with('banners', $banners)
+            ->with('flights', $vols)
+            ->with('from', $from)
+            ->with('to', $to);
     }
 
     public function show($id)

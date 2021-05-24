@@ -32,7 +32,11 @@
                             <tr>
                             <td>{{ $conv->id }}</td>
                              <td>
-                                <img src="{{ asset('app/' . $conv->image) }}" width="100">
+                                @if($conv->image)
+                                    <img src="{{ asset('app/' . $conv->image) }}" width="100">
+                                @else
+                                    --
+                                @endif
                             </td>
                             <td>{{ $conv->name }}</td>
                             <td>{{ $conv->type->name }}</td>

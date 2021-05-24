@@ -39,8 +39,6 @@
             @include('layouts.page_templates.guest')
         @endguest
 
-        {{-- @if (auth()->check())
-        @endif --}}
         <!--   Core JS Files   -->
         <script src="{{ asset('material') }}/js/core/jquery.min.js"></script>
         <script src="{{ asset('material') }}/js/core/popper.min.js"></script>

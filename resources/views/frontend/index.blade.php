@@ -42,9 +42,55 @@
             <div>
                 <h4 class="ff_subtitle">Welcome to Tunisair</h4>
                 <h2 class="ff_title">BLOC MOTEUR</h2>
-                <div class="ff_text">Curabitur nunc erat, consequat in erat ut, congue bibendum nulla suspendisse</div>
+                <div class="row" style="width: 70%; margin-left: 10px;">
+                    <div class="col-12">
+                        <form action="{{ route('frontend.search.vols') }}" method="POST">
+                            @csrf
+                                <div class="row mt-5">
+                                    <div class="col-7">
+                                        <label for="from" style="color: white;">FROM</label>
+                                        <select name="from" class="form-control" name="from" required>
+                                            @foreach ($from as $f)
+                                                <option value="{{$f}}">{{$f}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-7">
+                                        <label for="to" style="color: white;">TO</label>
+                                        <select name="to" class="form-control" name="to" required>
+                                            @foreach ($to as $t)
+                                                <option value="{{$t}}">{{$t}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-5">
+                                    <div class="col-7">
+                                        <label for="departure_date" style="color: white;">Departure Date</label>
+                                        <input type="date" name="departure_date" class="form-control" style="padding: 0;" required>
+                                    </div>
+                                    <div class="col-7">
+                                        <label for="return_date" style="color: white;">Return Date</label>
+                                        <input type="date" name="return_date" class="form-control" style="padding: 0;" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <label for="departure_date" style="color: white;">Number of tickets</label>
+                                        <input type="number" name="tickets_count" class="form-control" style="padding: 0;" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 text-right" class="margin-top: 5;">
+                                        <button class="btn btn-success">Search</button>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+
+                </div>
             </div>
-        </div>	      	 		
+        </div>
 
 
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, fugit! Libero ipsum id ut quos aliquam fuga corrupti amet! Tempora alias libero ut mollitia cum sequi voluptas odit molestias fugit.

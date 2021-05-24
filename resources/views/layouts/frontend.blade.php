@@ -43,6 +43,9 @@
                                 <li class="type-1 @if($page_title === 'agencies') active @endif">
                                     <a href="{{ route('frontend.agencies-map') }}">Agencies</a>
                                 </li>
+                                <li class="type-1 @if($page_title === 'tickets') active @endif">
+                                    <a href="{{ route('frontend.tickets.index') }}">Tickets</a>
+                                </li>
                                 <li class="type-1 @if($page_title === 'daily') active @endif">
                                     <a href="{{ route('frontend.daily-flights') }}">Daily Flights</a>
                                 </li>

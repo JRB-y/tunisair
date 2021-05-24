@@ -83,15 +83,35 @@
                                 </div>
                             </div>
                         </div>
-
+                        <hr>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="form-group">
                                     <label for="post">Profession</label>
                                     <input type="text" class="form-control" id="post" aria-describedby="post" name="post" required value="{{ $editMode ? $user->post :  old('post') }}">
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <select name="emp_category" class="form-control" id="emp_category">
+                                        <option value="0" selected disabled>--------</option>
+                                        @foreach (config('quota.emp_categories') as $empCategory)
+                                            <option value="{{ $empCategory['id'] }}" {{ ($editMode && $user->emp_category == $empCategory['id']) ? 'selected="selected"' : ''}}>{{ $empCategory['name'] }}, quota = {{$empCategory['quota']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <select name="emp_function" class="form-control" id="emp_function">
+                                        <option value="0" selected disabled>--------</option>
+                                        @foreach (config('quota.emp_fonctions') as $empFunction)
+                                            <option value="{{ $empFunction['id'] }}" {{ ($editMode && $user->emp_function == $empFunction['id']) ? 'selected="selected"' : ''}}>{{ $empFunction['name'] }}, quota = {{$empFunction['quota']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            {{-- <div class="col-6">
                                 <div class="form-check mt-4">
                                     <label class="form-check-label">
                                         <input class="form-check-input" type="checkbox" name="active" {{ $editMode && $user->active ? 'checked' : ''}}>
@@ -101,7 +121,7 @@
                                         </span>
                                     </label>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
 
                         {{-- SPOUSE --}}
@@ -149,14 +169,14 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="childFirstname">Firstname</label>
-                                        <input type="text" class="form-control" id="childFirstname" aria-describedby="titleHelper" name="childFirstname[]" value="{{ old('childFirstname') }}">
+                                        <input type="text" class="form-control" id="childFirstname" aria-describedby="titleHelper" name="childFirstname[]">
                                     </div>
                                 </div>
 
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="childLastname">Lastname</label>
-                                        <input type="text" class="form-control" id="childLastname" aria-describedby="titleHelper" name="childLastname[]" value="{{ old('childLastname') }}">
+                                        <input type="text" class="form-control" id="childLastname" aria-describedby="titleHelper" name="childLastname[]">
                                     </div>
                                 </div>
 
@@ -164,7 +184,7 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label for="childAge">Age</label>
-                                        <input type="text" class="form-control" id="childAge" aria-describedby="titleHelper" name="childAge[]" value="{{ old('childAge') }}">
+                                        <input type="text" class="form-control" id="childAge" aria-describedby="titleHelper" name="childAge[]">
                                     </div>
                                 </div>
                                 <div class="col-2">
@@ -209,6 +229,7 @@
     <script>
         //Clone the hidden element and shows it
         $('.add-one').click(function(){
+            console.log("dsfsdf")
             $('.dynamic-element').first().clone().appendTo('.dynamic-stuff').show();
             attach_delete();
         });
@@ -221,22 +242,23 @@
                 $(this).closest('.form-group').remove();
             });
         }
+        @if($editMode)
+            const editMode = {!! json_encode($editMode) !!}
+            const user = {!! isset($user) ? json_encode($user) : null !!}
 
-        const editMode = {!! json_encode($editMode) !!}
-        const user = {!! isset($user) ? json_encode($user) : null !!}
-
-        if (editMode && user) {
-            const children = user.children
-            for (const child of children) {
-                const formElement = $('.dynamic-element').first().clone()
-                formElement.find('#childFirstname')[0].value = child.firstname
-                formElement.find('#childLastname')[0].value = child.lastname
-                formElement.find('#childAge')[0].value = child.age
-                formElement.find('#childGender')[0].value = child.gender
-                formElement.appendTo('.dynamic-stuff').show();
-                attach_delete();
+            if (editMode && user) {
+                const children = user.children
+                for (const child of children) {
+                    const formElement = $('.dynamic-element').first().clone()
+                    formElement.find('#childFirstname')[0].value = child.firstname
+                    formElement.find('#childLastname')[0].value = child.lastname
+                    formElement.find('#childAge')[0].value = child.age
+                    formElement.find('#childGender')[0].value = child.gender
+                    formElement.appendTo('.dynamic-stuff').show();
+                    attach_delete();
+                }
             }
-        }
+        @endif
     </script>
 @endpush
 
